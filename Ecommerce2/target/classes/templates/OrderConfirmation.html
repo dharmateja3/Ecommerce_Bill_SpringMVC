@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Order Confirmation</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<style>
+		#total{
+			font-size: 20px;
+			font-weight: bold;
+		}
+	</style>
+</head>
+<body>
+	<div class="d-flex justify-content-center">
+    <div class="alert alert-primary text-dark col-md-6 border p-3 mt-3">
+		<div class="d-flex flex-row text-success mt-2">
+			<span class="mt-1"><i class="fa-regular fa-circle-check fa-2x"></i></span>
+        	<h2 th:text="${message}" class="ml-2"></h2>
+		</div>
+			<p>Ordered at : <span th:text="${OrderTime}"></span></p>
+			
+		<hr class="">
+		        <h3>Order Details</h3>
+		        <h4>Delivery Address</h4>
+		        <p>Username: <span th:text="${user.username}"></span></p>
+		        <p>Email: <span th:text="${user.email}"></span></p>
+		        <p>Address: <span th:text="${user.address}"></span></p>
+		        <p>Mobile Number: <span th:text="${user.mobileNumber}"></span></p>
+				
+			
+		        <h4>Items</h4>
+		        <table class="table table-bordered">
+		            <thead>
+		                <tr>
+		                    <th>Product</th>
+		                    <th>Price</th>
+							<th>Seller Address</th>
+		                </tr>
+		            </thead>
+		            <tbody>
+		                <tr th:each="cartItem : ${cartItems}">
+		                    <td th:text="${cartItem.product.name}">Product Name</td>
+		                    <td th:text="${cartItem.product.price}">Price</td>
+							<td th:text="${cartItem.product.seller_address}">Seller Address</td>
+		                </tr>
+						<tr>
+						    <td colspan="2" id="total">
+						      	<div class="d-flex justify-content-end">Total Amount: Rs. <span th:text="${totalAmount}">0.00</span></div>
+						    </td>
+						</tr>
+		            </tbody>
+		        </table>
+		        
+		        
+				<div class="d-flex justify-content-between">
+				
+	<a class="btn btn-primary" href="/products">Continue Shopping</a>
+	<button class="btn btn-warning" th:onclick="window.print()">Print Bill</button>
+	</div>	
+</div>
+	</div>
+</body>
+</html>

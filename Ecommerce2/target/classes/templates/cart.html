@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Cart</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-4">
+		<div class="d-flex justify-content-between m-2">
+			<h2>Your Cart</h2>
+		<a class="btn btn-primary" href="/products">Continue Shopping</a>
+		</div>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+					<th>Product Image</th>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="cartItem : ${cartItems}">
+					<td>
+					                       <img th:src="${cartItem.product.imageUrl}" alt="Product Image" style="max-width: 100px;">
+					                   </td>
+                    <td th:text="${cartItem.product.name}">Product Name</td>
+                    <td th:text="${cartItem.product.price}">Price</td>
+                    <td>
+                        <form th:action="@{/removeFromCart}" method="post">
+                            <input type="hidden" name="productId" th:value="${cartItem.product.id}" />
+                            <button type="submit" class="btn btn-danger">Remove</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <h4>Total Amount: $<span th:text="${totalAmount}">0.00</span></h4>
+        
+        <a class="btn btn-primary" href="/buyNow">Buy Now</a>
+    </div>
+</body>
+</html>
+
+
